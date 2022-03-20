@@ -14,6 +14,8 @@ function deleteErrors()
     if (isset($_SESSION['errors'])) $_SESSION['errors'] = null;
     if (isset($_SESSION['createdUser'])) $_SESSION['createdUser'] = null;
     if (isset($_SESSION['error_post'])) $_SESSION['error_post'] = null;
+    if (isset($_SESSION['update_profile'])) $_SESSION['update_profile'] = null;
+    if (isset($_SESSION['error_update_profile'])) $_SESSION['error_update_profile'] = null;
 //    session_destroy();
 //    unset($_SESSION['errors']);
 }

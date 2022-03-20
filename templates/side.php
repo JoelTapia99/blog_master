@@ -6,7 +6,7 @@
             </h4> <br>
             <a href="post.php" class="boton boton-naranja">Crear Post</a>
             <a href="categorie.php" class="boton">Crear Categoria</a>
-            <a href="app/logout.php" class="boton boton-verde">Mi Perfil</a>
+            <a href="userProfile.php" class="boton boton-verde">Mi Perfil</a>
             <br>
             <a href="app/logout.php" class="boton boton-rojo">Cerrar Sesion</a>
         </div>
@@ -45,19 +45,19 @@
             <form action="app/register.php" method="post">
                 <label for="name">Nombre</label>
                 <input type="text" name="name">
-                <?php echo isset($_SESSION['errors']) ? showErrors($_SESSION['errors'], 'name') : '' ?>
+                <?= isset($_SESSION['errors']) ? showErrors($_SESSION['errors'], 'name') : '' ?>
 
                 <label for="lastname">Apellido</label>
                 <input type="text" name="lastname">
-                <?php echo isset($_SESSION['errors']) ? showErrors($_SESSION['errors'], 'lastname') : '' ?>
+                <?= isset($_SESSION['errors']) ? showErrors($_SESSION['errors'], 'lastname') : '' ?>
 
                 <label for="email">Email</label>
                 <input type="email" name="email">
-                <?php echo isset($_SESSION['errors']) ? showErrors($_SESSION['errors'], 'email') : '' ?>
+                <?= isset($_SESSION['errors']) ? showErrors($_SESSION['errors'], 'email') : '' ?>
 
                 <label for="password">Contraseña</label>
                 <input type="password" name="password">
-                <?php echo isset($_SESSION['errors']) ? showErrors($_SESSION['errors'], 'password') : '' ?>
+                <?= isset($_SESSION['errors']) ? showErrors($_SESSION['errors'], 'password') : '' ?>
 
                 <input type="submit" value="Registrar">
             </form>
