@@ -16,27 +16,31 @@ function deleteErrors()
     if (isset($_SESSION['error_post'])) $_SESSION['error_post'] = null;
     if (isset($_SESSION['update_profile'])) $_SESSION['update_profile'] = null;
     if (isset($_SESSION['error_update_profile'])) $_SESSION['error_update_profile'] = null;
-//    session_destroy();
-//    unset($_SESSION['errors']);
 }
 
-function getCategories($connect){
+function getCategories($connect)
+{
     $sql = "SELECT * FROM categorias ORDER BY `id` ASC;";
     $query = mysqli_query($connect, $sql);
     $categories = array();
-    if ($query){
+    if ($query) {
         return $categories = $query;
     }
     return $categories;
 }
 
-function getLastPosts($connect){
+function getLastPosts($connect, $limit = null)
+{
     $sql = "SELECT e.*, c.nombre AS 'categoria' FROM `entradas` e "
-        .  "INNER JOIN `categorias` c on e.categoria_id = c.id "
-        .  "ORDER BY e.id DESC LIMIT 4";
+        . "INNER JOIN `categorias` c on e.categoria_id = c.id "
+        . "ORDER BY e.id DESC";
+
+    if ($limit != null) {
+        $sql .= " LIMIT 4";
+    }
     $posts = array();
     $query = mysqli_query($connect, $sql);
-    if (!is_null($query)){
+    if (!is_null($query)) {
         return $posts = $query;
     }
     return $posts;

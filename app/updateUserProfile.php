@@ -27,10 +27,20 @@ if (isset($_POST)) {
         $errors["email"] = "El correo no es valido";
     }
 
-    $sql = "SELECT `nombre`, `apellidos`, `email` FROM `usuarios` WHERE `id` = $idUser";
+    $sql = "SELECT `email` FROM `usuarios` WHERE `email` = '$email'";
     $query = mysqli_query($connect, $sql);
 
-    if (count($errors) == 0) {
+    $exist_email = mysqli_fetch_assoc($query);
+
+    if (!is_null($exist_email)){
+        if (empty($errors["email"])){
+            $errors["email"] = "El correo ya existe";
+        }else{
+            $errors["email"] .= "\n El correo ya existe";
+        }
+    }
+
+    if (count($errors) == 0 && is_null($exist_email)) {
         $sql = "UPDATE `usuarios` SET "
             . "`nombre`='$name', "
             . "`apellidos`='$lastname', "
