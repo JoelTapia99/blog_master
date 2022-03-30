@@ -1,10 +1,20 @@
+<?php require_once "db/connection.php"; ?>
+<?php require_once "app/helpers.php"; ?>
+
+<?php
+    $searchCategory = getCategory($connect, $_GET['id']);
+    if (!isset($searchCategory['id'])){
+        header("Location: index.php");
+    }
+?>
+
 <?php require_once 'templates/header.php'; ?>
 <?php require_once 'templates/side.php' ?>
 
     <div id="principal">
-        <h1>Ultimos Posts</h1>
-        <?php $posts = getLastPosts($connect, true); ?>
-        <?php if (!empty($posts)): ?>
+        <h1>Posts de <?= $searchCategory['nombre'] ?></h1>
+        <?php $posts = getLastPosts($connect, null, $searchCategory['id']); ?>
+        <?php if (!empty($posts) && mysqli_num_rows($posts) >= 1): ?>
             <?php while ($post = mysqli_fetch_assoc($posts)): ?>
                 <article class="entrada">
                     <a href="postDetail.php?id=<?=$post['id']?>">

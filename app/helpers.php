@@ -29,19 +29,49 @@ function getCategories($connect)
     return $categories;
 }
 
-function getLastPosts($connect, $limit = null)
+function getCategory($connect, $id)
+{
+    $sql = "SELECT * FROM categorias WHERE `id` = $id;";
+    $query = mysqli_query($connect, $sql);
+    $categories = array();
+
+    if ($query && mysqli_num_rows($query) >= 1) {
+        return $categories = mysqli_fetch_assoc($query);
+    }
+    return $categories;
+}
+
+function getLastPosts($connect, $limit = null, $category = null)
 {
     $sql = "SELECT e.*, c.nombre AS 'categoria' FROM `entradas` e "
-        . "INNER JOIN `categorias` c on e.categoria_id = c.id "
-        . "ORDER BY e.id DESC";
+        . "INNER JOIN `categorias` c on e.categoria_id = c.id ";
+
+    if ($category != null) {
+        $sql .= "WHERE e.categoria_id = '$category'";
+    }
+    $sql .= "ORDER BY e.id DESC";
 
     if ($limit != null) {
         $sql .= " LIMIT 4";
     }
+
     $posts = array();
     $query = mysqli_query($connect, $sql);
     if (!is_null($query)) {
         return $posts = $query;
+    }
+    return $posts;
+}
+
+function getPost($connect, $id){
+    $sql =  "SELECT e.*, c.nombre AS 'categoria', CONCAT(u.nombre, ' ', u.apellidos) AS usuario FROM entradas e ".
+            "INNER  JOIN categorias c ON e.categoria_id = c.id ".
+            "INNER  JOIN usuarios u ON e.usuario_id = u.id ".
+            "WHERE e.id = $id;";
+    $posts = array();
+    $query = mysqli_query($connect, $sql);
+    if (!is_null($query)) {
+        return $posts = mysqli_fetch_assoc($query);
     }
     return $posts;
 }

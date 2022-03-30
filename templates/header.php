@@ -28,7 +28,7 @@
             <?php if ($categories != null): ?>
                 <?php while ($categorie = mysqli_fetch_assoc($categories)): ?>
                     <li>
-                        <a href="categorias.php?id=<?= $categorie['id'] ?>">
+                        <a href="categories.php?id=<?= $categorie['id'] ?>">
                             <?= $categorie['nombre'] ?>
                         </a>
                     </li>

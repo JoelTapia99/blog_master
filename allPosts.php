@@ -7,11 +7,13 @@
         <?php if (!empty($posts)): ?>
             <?php while ($post = mysqli_fetch_assoc($posts)): ?>
                 <article class="entrada">
-                    <h2><?= $post['titulo'] ?></h2>
-                    <span class="fecha"> <?= $post['categoria'] . ' | ' . $post['fecha'] ?> </span>
-                    <p>
-                        <?= substr($post['descripcion'], 0, 180) . "..." ?>
-                    </p>
+                    <a href="postDetail.php?id=<?=$post['id']?>">
+                       <h2><?= $post['titulo'] ?></h2>
+                       <span class="fecha"> <?= $post['categoria'] . ' | ' . $post['fecha'] ?> </span>
+                       <p>
+                           <?= substr($post['descripcion'], 0, 180) . "..." ?>
+                       </p>
+                   </a>
                 </article>
             <?php endwhile; ?>
         <?php else: ?>
